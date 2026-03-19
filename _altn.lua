@@ -3,7 +3,28 @@ function lerp(a, b, t)
 	return a + (b - a) * t
 end
 --@endsection
---@section _-circleSpin__
+--@section __Txtbox__
+function calculateTextOffset2d(width,height,ox,oy,text,threebyfive)
+    local textWidth = #text * (threebyfive and 3 or 4) --Sw regular font is 4 wide, 3x5 from Txt is 3 wide.
+    local textHeight = 5
+    local offsetX = (((ox)*width/2) + (width / 2)) - (textWidth / 2)
+    local offsetY = (((oy)*height/2) + (height / 2)) - (textHeight / 2)
+    offsetX = clamp(offsetX, 0, width - textWidth)
+    offsetY = clamp(offsetY, 0, height - textHeight)
+    print(tostring(offsetX)..', '..tostring(offsetY)..', '..tostring(text))
+    return offsetX, offsetY, text
+
+end
+function TxtBox(...)
+    return calculateTextOffset2d(...)
+end
+--@endsection
+--@section __clamp__
+function clamp(var, mi, ma)
+	return math.min(math.max(var, mi),ma)
+end
+--@endsection
+--@section __circleSpin__
 function circleSpin(sx, sy, l, r)
 	screen.drawLine(sx, sy, sx+l*math.cos(r), sy+l*math.sin(r))
 end
